@@ -9,8 +9,6 @@
 import UIKit
 
 class QualificationViewController: UITableViewController {
-
-    var qualification: [[String: Any]] = []
     
     var student: Student!
     
@@ -43,7 +41,7 @@ class QualificationViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return qualification.count
+        return student.qualifications.count
     }
 
     
@@ -51,8 +49,10 @@ class QualificationViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: QualificationCell.identifier, for: indexPath) as! QualificationCell
 
         // Configure the cell...
-        cell.titleLabel.text = qualification[indexPath.row]["QualName"] as? String
-        cell.progressBar.setProgress(to: 0.5, withAnimation: true)
+        let qualification: Qualification = student.qualifications[indexPath.row]
+        cell.titleLabel.text = qualification.QualName
+        let progress = student.results[qualification.QualCode]?.getTotalPercent(totalUnits: qualification.TotalUnits)
+        cell.progressBar.setProgress(to: progress ?? 0.0, withAnimation: true)
 
         return cell
     }
@@ -93,21 +93,30 @@ class QualificationViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+        if segue.identifier == "qualDetail" {
+            let controller = segue.destination as! DetailViewController
+            if let cell = sender as? QualificationCell,
+                let indexPath = tableView.indexPath(for: cell) {
+                let qualification = student.qualifications[indexPath.row]
+                controller.qualification = qualification
+                controller.result = student.results[qualification.QualCode]
+                controller.competences = student.competencyList[qualification.QualCode]
+            }
+        }
     }
-    */
+    
 
 }
 
 extension QualificationViewController: StudentQualifications{
-    func itemsDownloaded(items: [[String : Any]]) {
-        self.qualification = items
+    func itemsDownloaded() {
         self.tableView.reloadData()
     }
 }

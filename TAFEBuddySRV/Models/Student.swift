@@ -14,7 +14,24 @@ protocol StudentProtocol: class {
 }
 
 protocol StudentQualifications: class {
-    func itemsDownloaded(items: [[String: Any]])
+    func itemsDownloaded()
+}
+
+struct Result {
+    var coreComplete: Int = 0
+    var electiveComplete: Int = 0
+    var listElectiveComplete: Int = 0
+    
+    func getTotalUnits() -> Int
+    {
+        return coreComplete + electiveComplete + listElectiveComplete
+    }
+    
+    func getTotalPercent(totalUnits: Int) -> Double
+    {
+        return Double(Double(getTotalUnits()) / Double(totalUnits))
+    }
+    
 }
 
 class Student: NSObject, URLSessionDataDelegate {
@@ -24,6 +41,12 @@ class Student: NSObject, URLSessionDataDelegate {
     var GivenName: String
     var LastName: String
     var Email: String
+    
+    var qualifications: [Qualification]! = []
+    
+    var competencyList: [String: [Competence]]! = [:]
+    
+    var results: [String: Result]! = [:]
 
     
     // Delegate
@@ -49,7 +72,6 @@ class Student: NSObject, URLSessionDataDelegate {
     
     func getStudentQualifications()
     {
-        var qualifications: [[String: Any]] = []
         let url = baseUrl + "/\(StudentId)/qualifications"
         
         request(url: url, method: "GET", parameters: nil) { (json, error) in
@@ -64,13 +86,45 @@ class Student: NSObject, URLSessionDataDelegate {
             }
             
             for item in json {
-                qualifications.append(item)
+                guard let qual = self.parseQualification(item: item) else {
+                    return
+                }
+                self.qualifications.append(qual)
             }
             
-            DispatchQueue.main.async {                self.qualificationsDelegate.itemsDownloaded(items: qualifications)
-            }
+            self.getResults()
+            //DispatchQueue.main.async { self.qualificationsDelegate.itemsDownloaded() }
         }
         
+    }
+    
+    func getResults()
+    {
+        let url = baseUrl + "/\(StudentId)/results"
+        
+        request(url: url, method: "GET", parameters: nil) { (json, error) in
+            if let error = error {
+                print(error.localizedDescription)
+                return
+            }
+            
+            guard let json = json else {
+                print("No Json response")
+                return
+            }
+            
+            for item in json {
+                for key in item.keys {
+                    self.competencyList[key] = []
+                    for comp in item[key] as! [[String: Any]] {
+                        self.competencyList[key]?.append(self.parseCompetence(item: comp))
+                    }
+                }
+            }
+            
+            self.checkResults()
+            DispatchQueue.main.async { self.qualificationsDelegate.itemsDownloaded() }
+        }
     }
     
     func request(url: String, method: String, parameters: [String: Any]?, completion: @escaping ([[String: Any]]?, Error?) -> Void)
@@ -141,6 +195,62 @@ class Student: NSObject, URLSessionDataDelegate {
         DispatchQueue.main.async(execute: { () -> Void in
             self.delegate.itemsDownloaded(items: result)
         })
+    }
+    
+    func parseQualification(item: [String: Any]) -> Qualification?
+    {
+        guard let qualCode = item["QualCode"] as? String,
+        let nationalCode = item["NationalQualCode"] as? String,
+        let tafeQualCode = item["TafeQualCode"] as? String,
+        let qualName = item["QualName"] as? String,
+        let totalUnits = item["TotalUnits"] as? Int,
+        let coreUnits = item["CoreUnits"] as? Int,
+        let electedUnits = item["ElectedUnits"] as? Int,
+            let reqListedElectedUnits = item["ReqListedElectedUnits"] as? Int else {
+                return nil
+        }
+        
+        let qual = Qualification(qualCode: qualCode, nationalCode: nationalCode, tafeQualCode: tafeQualCode, qualName: qualName, totalUnits: totalUnits, coreUnits: coreUnits, electedUnits: electedUnits, reqListedElectedUnits: reqListedElectedUnits)
+        
+        return qual
+    }
+    
+    func parseCompetence(item: [String: Any]) -> Competence!
+    {
+        let crn = item["CRN"] as? String
+        let tafeCompCode = item["TafeCompCode"] as? String
+        let termCode = item["TermCode"] as? Int
+        let termYear = item["TermYear"] as? Int
+        let grade = item["Grade"] as? String
+        let gradeDate = item["GradeDate"] as? String
+        let subjectCode = item["SubjectCode"] as? String
+        let nationalCompCode = item["NationalCompCode"] as? String
+        let compTypeCode = item["CompTypeCode"] as? String
+        let competencyName = item["CompetencyName"] as? String
+        
+        let comp = Competence(crn: crn, tafeCompCode: tafeCompCode, termCode: termCode, termYear: termYear, grade: grade, gradeDate: gradeDate, subjectCode: subjectCode, nationalCompCode: nationalCompCode, compTypeCode: compTypeCode, competencyName: competencyName)
+        
+        return comp
+    }
+    
+    func checkResults()
+    {
+        for qual in self.qualifications {
+            var result = Result()
+            for comp in self.competencyList[qual.QualCode]! {
+                if comp.CompTypeCode == "C" && comp.Grade == "PA" {
+                    result.coreComplete += 1
+                }
+                if comp.CompTypeCode == "E" && comp.Grade == "PA" {
+                    result.electiveComplete += 1
+                }
+                if (comp.CompTypeCode != "C" && comp.CompTypeCode != "E") && comp.Grade == "PA" {
+                    result.listElectiveComplete += 1
+                }
+            }
+            
+            self.results[qual.QualCode] = result
+        }
     }
 
 }

@@ -7,11 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E4F44FA236282EF00D807DA /* CompetenceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4F44F9236282EF00D807DA /* CompetenceCell.swift */; };
 		1E6330902310FA2900338625 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E63308F2310FA2900338625 /* AppDelegate.swift */; };
 		1E6330922310FA2900338625 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6330912310FA2900338625 /* LoginController.swift */; };
 		1E6330952310FA2900338625 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1E6330932310FA2900338625 /* Main.storyboard */; };
 		1E7C777B232B2F7100347AF2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1E7C777A232B2F7100347AF2 /* Assets.xcassets */; };
 		1E7C777F232B333D00347AF2 /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7C777E232B333D00347AF2 /* Student.swift */; };
+		1EA11D0B236418890086A7F1 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EA11D0A236418890086A7F1 /* DetailViewController.swift */; };
+		1EA11D0D236422C30086A7F1 /* Competence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EA11D0C236422C30086A7F1 /* Competence.swift */; };
 		1EE22B6F234768D600B3C277 /* Qualification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE22B6E234768D600B3C277 /* Qualification.swift */; };
 		1EE22B7123484FC800B3C277 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE22B7023484FC800B3C277 /* TabBarViewController.swift */; };
 		1EE22B732349D20700B3C277 /* CircularProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE22B722349D20700B3C277 /* CircularProgressBar.swift */; };
@@ -22,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1E4F44F9236282EF00D807DA /* CompetenceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompetenceCell.swift; sourceTree = "<group>"; };
 		1E63308C2310FA2900338625 /* TAFEBuddySRV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TAFEBuddySRV.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E63308F2310FA2900338625 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1E6330912310FA2900338625 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
@@ -29,6 +33,8 @@
 		1E63309B2310FA2B00338625 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1E7C777A232B2F7100347AF2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1E7C777E232B333D00347AF2 /* Student.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Student.swift; sourceTree = "<group>"; };
+		1EA11D0A236418890086A7F1 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		1EA11D0C236422C30086A7F1 /* Competence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Competence.swift; sourceTree = "<group>"; };
 		1EE22B6E234768D600B3C277 /* Qualification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Qualification.swift; sourceTree = "<group>"; };
 		1EE22B7023484FC800B3C277 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		1EE22B722349D20700B3C277 /* CircularProgressBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircularProgressBar.swift; sourceTree = "<group>"; };
@@ -103,6 +109,7 @@
 				1EF6FF43232200D80041219A /* WelcomeViewController.swift */,
 				1EF6FF45232201530041219A /* QualificationViewController.swift */,
 				1EE22B7023484FC800B3C277 /* TabBarViewController.swift */,
+				1EA11D0A236418890086A7F1 /* DetailViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -113,6 +120,7 @@
 				1EE22B722349D20700B3C277 /* CircularProgressBar.swift */,
 				1E7C777E232B333D00347AF2 /* Student.swift */,
 				1EE22B6E234768D600B3C277 /* Qualification.swift */,
+				1EA11D0C236422C30086A7F1 /* Competence.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -121,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				1EF6FF3F2321F7D40041219A /* QualificationCell.swift */,
+				1E4F44F9236282EF00D807DA /* CompetenceCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -196,14 +205,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1EA11D0B236418890086A7F1 /* DetailViewController.swift in Sources */,
 				1EE22B7123484FC800B3C277 /* TabBarViewController.swift in Sources */,
 				1E6330922310FA2900338625 /* LoginController.swift in Sources */,
+				1E4F44FA236282EF00D807DA /* CompetenceCell.swift in Sources */,
 				1EE22B732349D20700B3C277 /* CircularProgressBar.swift in Sources */,
 				1E7C777F232B333D00347AF2 /* Student.swift in Sources */,
 				1EF6FF44232200D80041219A /* WelcomeViewController.swift in Sources */,
 				1E6330902310FA2900338625 /* AppDelegate.swift in Sources */,
 				1EF6FF402321F7D40041219A /* QualificationCell.swift in Sources */,
 				1EE22B6F234768D600B3C277 /* Qualification.swift in Sources */,
+				1EA11D0D236422C30086A7F1 /* Competence.swift in Sources */,
 				1EF6FF46232201530041219A /* QualificationViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
