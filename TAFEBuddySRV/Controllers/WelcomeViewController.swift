@@ -11,6 +11,7 @@ import UIKit
 class WelcomeViewController: UIViewController {
 
     @IBOutlet weak var welcomeLabel: UILabel!
+    @IBOutlet weak var logoutButton: UIButton!
     
     var student: Student!
     
@@ -21,11 +22,12 @@ class WelcomeViewController: UIViewController {
             self.student = tabBarController.student
         }
        
+        logoutButton.layer.cornerRadius = 4.0
     }
     
     override func viewWillAppear(_ animated: Bool) {
         if (student != nil) {
-            welcomeLabel.text = "Welcome \(student.description)"
+            welcomeLabel.text = "\(student.description)"
         }
     }
 

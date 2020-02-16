@@ -7,6 +7,14 @@
 //
 
 import UIKit
+import Alamofire
+import MBProgressHUD
+
+// Login structure
+struct Login: Encodable {
+    let email: String
+    let password: String
+}
 
 // Error enumeration
 enum LoginError: Error {
@@ -30,9 +38,11 @@ extension LoginError: LocalizedError {
 
 class LoginController: UIViewController {
 
-    // Outlets
+    //Outlets
+    @IBOutlet var contentView: UIView!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var loginButtonOutlet: UIButton!
     
     // Properties
     let backgroundImageView = UIImageView()
@@ -46,7 +56,8 @@ class LoginController: UIViewController {
         super.viewDidLoad()
         
         setBackground() // Set the background up
-        setActivityIndicator() // Activity Indicator
+        
+        loginButtonOutlet.layer.cornerRadius = 5.0
         
         // Set delegates
         emailTextField.delegate = self
@@ -76,14 +87,23 @@ class LoginController: UIViewController {
             self.showToast(title: "Error", message: "Email and Password are required!")
             return
         }
-
-        self.toogleActivityIndicator()
         
-        // Call Login method
-        self.login(email: email, password: password) { jsonResponse, error in
-            // Becase web requests runs on the a different thread we need to dispatch from the main queue
-            DispatchQueue.main.async {
-                self.toogleActivityIndicator()
+        showLoadingHUD()
+        
+        // Get the token
+        var accessToken: String!
+        let auth = AuthenticationHelper()
+        auth.ObtainToken { (token, error) in
+            guard error == nil else {
+                self.hideLoadingHUD()
+                self.showToast(title: "Error", message: error!.localizedDescription)
+                return
+            }
+            
+            accessToken = token
+            
+            self.login(email: email, password: password, accessToken: accessToken) { (result, error) in
+                self.hideLoadingHUD()
                 // Check for errors
                 guard error == nil else {
                     // If no jsonResponse print the general error
@@ -92,9 +112,9 @@ class LoginController: UIViewController {
                 }
                 
                 // If no error, check which type of the user returned by the API
-                if jsonResponse?["type"] as? String == "Student"{
+                if result?["type"] as? String == "Student"{
                     // Displays the appropriated Storyboard
-                    if let obj = jsonResponse?["value"] as? [String: Any] {
+                    if let obj = result?["value"] as? [String: Any] {
                         self.student = Student(studentId: obj["StudentID"] as? String, givenName: obj["GivenName"] as? String, lastName: obj["LastName"] as? String, email: obj["EmailAddress"] as? String)
                         self.performSegue(withIdentifier: "student", sender: nil)
                     }
@@ -115,62 +135,41 @@ class LoginController: UIViewController {
     
     
     // Functions or Methods
-    func login(email: String, password: String, completion:@escaping ([String: Any]?, Error?) -> Void) {
-        //Declare parameter as a dictionary which contains string as key and value combination. considering inputs are valid
-        let parameters: [String: Any] = ["email": email, "password": password] as Dictionary
+    func login(email: String, password: String, accessToken: String, completion:@escaping ([String: Any]?, Error?) -> Void) {
+             
+        let login = Login(email: email, password: password)
         
-        //Create the url
-        let url = URL(string: self.baseUrl)! //change the url
+        let headers: HTTPHeaders = [
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            "Authorization": accessToken
+        ]
         
-        //Create the session object
-        let session = URLSession(configuration: .default)
-        
-        //Now create the URLRequest object using the url object
-        var request = URLRequest(url: url)
-        
-        request.httpMethod = "POST" //Set http method as POST
-        
-        // Convert the Dictionary as JSON
-        do {
-            request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted) // pass dictionary to nsdata object and set it as request body
-        } catch let error {
-            print(error.localizedDescription)
-            return
-        }
-        
-        // Add the headers
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-                
-        //Create dataTask using the session object to send data to the server
-        let task = session.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
-            guard let data = data,
-                let response = response as? HTTPURLResponse,
-                error == nil else {                                             // check for fundamental networking error
-                    completion(nil, LoginError.networkError)
-                    return
-            }
-
-            guard 200 ... 299 ~= response.statusCode else {                    // check for http errors
-                if response.statusCode == 401 {
-                    completion(nil, LoginError.invalidEmailOrPassword)
-                } else {
-                    completion(nil, LoginError.generalError)
-                }
-                return
-            }
-
-            do {
-                if let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any]{
-                   completion(json,nil)
-                }
-            } catch {
-                completion(nil,error)
-            }
+        AF.request(self.baseUrl,
+                   method: .post,
+                   parameters: login,
+                   encoder: JSONParameterEncoder.default,
+                   headers: headers)
+            .validate()
+            .responseJSON { response in
+                switch response.result {
+                  case .success:
+                      guard let value = response.value as? [String: Any] else {
+                          completion(nil,LoginError.generalError)
+                          return
+                      }
+                      completion(value, nil)
+                      
+                  case let .failure(error):
+                    if response.response?.statusCode == 401 {
+                        
+                    } else {
+                        print("Error in login \(error)")
+                        completion(nil,LoginError.generalError)
+                    }
+                  }
             
-        })
-        
-        task.resume()
+        }
     }
     
     // Toast
@@ -216,25 +215,13 @@ class LoginController: UIViewController {
         passwordTextField.resignFirstResponder()
     }
     
-    // Activity Indicator
-    func setActivityIndicator() {
-        self.view.addSubview(activityIndicator)
-        activityIndicator.center = view.center
-        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
-        activityIndicator.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        activityIndicator.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        activityIndicator.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        activityIndicator.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        activityIndicator.hidesWhenStopped = true;
-        activityIndicator.style = UIActivityIndicatorView.Style.whiteLarge;
-        activityIndicator.backgroundColor = UIColor.init(red: 0.2, green: 0.2, blue: 0.2, alpha: 0.5)
+    private func showLoadingHUD() {
+        let hud = MBProgressHUD.showAdded(to: contentView, animated: true)
+      hud.label.text = "Loading..."
     }
-    func toogleActivityIndicator() {
-        if activityIndicator.isAnimating {
-            activityIndicator.stopAnimating()
-        } else {
-            activityIndicator.startAnimating()
-        }
+
+    private func hideLoadingHUD() {
+      MBProgressHUD.hide(for: contentView, animated: true)
     }
 }
 

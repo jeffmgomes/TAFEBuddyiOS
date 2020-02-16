@@ -7,6 +7,12 @@
 //
 
 import UIKit
+import MBProgressHUD
+
+struct Section {
+    var name: String
+    var items: [Competence]
+}
 
 class DetailViewController: UIViewController {
 
@@ -17,10 +23,13 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var coreProgress: UIProgressView!
     @IBOutlet weak var electiveProgress: UIProgressView!
     @IBOutlet weak var listedElectiveProgress: UIProgressView!
+    @IBOutlet weak var requestParchmentButton: UIButton!
     
     var qualification: Qualification!
     var result: Result!
     var competences: [Competence]!
+    
+    var sections: [Section]! = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +39,8 @@ class DetailViewController: UIViewController {
         // Set up Progress bar
         circularProgressBar.labelSize = 30
         circularProgressBar.lineWidth = 4
-        circularProgressBar.setProgress(to: result.getTotalPercent(totalUnits: qualification.TotalUnits), withAnimation: true)
+        let percentage = result.getTotalPercent(totalUnits: qualification.TotalUnits)
+        circularProgressBar.setProgress(to: percentage, withAnimation: true)
         
         coreLabel.text = "Core: \(result.coreComplete) of \(qualification.CoreUnits)"
         coreProgress.setProgress(Float(Float(result.coreComplete) / Float(qualification.CoreUnits)), animated: true)
@@ -40,6 +50,31 @@ class DetailViewController: UIViewController {
         
         listedElectiveLabel.text = "Listed Electives: \(result.listElectiveComplete) of \(qualification.ReqListedElectedUnits)"
         listedElectiveProgress.setProgress(Float(Float(result.listElectiveComplete) / Float(qualification.ReqListedElectedUnits)), animated: true)
+        
+        
+        // Map the competences
+        let coreComp = self.competences.filter({$0.CompTypeCode == "C"})
+        if coreComp.count > 0 {
+            self.sections.append(Section.init(name: "Core", items: coreComp))
+        }
+        
+        let electivesComp = self.competences.filter({$0.CompTypeCode == "E"})
+        if electivesComp.count > 0 {
+            self.sections.append(Section.init(name: "Elective", items: electivesComp))
+        }
+        
+        let listedElectComp = self.competences.filter({$0.CompTypeCode != "C" && $0.CompTypeCode != "E"})
+        if listedElectComp.count > 0 {
+            self.sections.append(Section.init(name: "Listed Electives", items: listedElectComp))
+        }
+        
+        // Enable Request Parchment Button
+        if (percentage == 1) {
+            requestParchmentButton.isEnabled = true
+        } else {
+            requestParchmentButton.isEnabled = false
+        }
+
     }
     
 
@@ -52,5 +87,28 @@ class DetailViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+}
+extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.sections[section].items.count
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return self.sections[section].name
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return self.sections.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "competenceCell", for: indexPath) as! CompetenceCell
 
+        let section = self.sections[indexPath.section] // First get the section
+        let item = section.items[indexPath.row] // Then get item inside that section
+        
+        cell.competence = item
+        
+        return cell
+    }    
 }

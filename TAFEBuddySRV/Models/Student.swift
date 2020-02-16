@@ -8,6 +8,7 @@
 
 import UIKit
 import Foundation
+import Alamofire
 
 protocol StudentProtocol: class {
     func itemsDownloaded(items: NSArray)
@@ -129,49 +130,53 @@ class Student: NSObject, URLSessionDataDelegate {
     
     func request(url: String, method: String, parameters: [String: Any]?, completion: @escaping ([[String: Any]]?, Error?) -> Void)
     {
-        //Create the session object
-        let session = URLSession(configuration: .default)
-        //Now create the URLRequest object using the url object
-        var request = URLRequest(url: URL(string: url)!)
-        //Set http method
-        request.httpMethod = method
-        
-        if let parameters = parameters {
-            do {
-                request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted)
-            } catch let error {
-                print(error.localizedDescription)
-                return
-            }
-            
-            // Add the headers
-            request.addValue("application/json", forHTTPHeaderField: "Accept")
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        }
-        
-        let task = session.dataTask(with: request) { data, res, error in
-            guard let data = data,
-                let res = res as? HTTPURLResponse,
-                error == nil else {
-                    completion(nil,error)
-                    return
-            }
-            
-            guard 200 ... 299 ~= res.statusCode else {
+        // Get the token
+        var accessToken: String!
+        let auth = AuthenticationHelper()
+        auth.ObtainToken { (token, error) in
+            guard error == nil else {
                 completion(nil,error)
                 return
             }
             
-            do {
-                if let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [[String: Any]] {
-                    completion(json,nil)
-                }
-            } catch {
-                completion(nil, error)
+            accessToken = token
+            
+            var httpMethod: HTTPMethod
+            switch method  {
+            case "POST":
+                httpMethod = .post
+            default:
+                httpMethod = .get
+            }
+            
+            let headers: HTTPHeaders = [
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "Authorization": accessToken
+            ]
+            
+            AF.request(url,
+                       method: httpMethod,
+                       parameters: parameters,
+                       headers: headers)
+            .validate()
+                .responseJSON { response in
+                    switch response.result {
+                    case .success:
+                        guard let value = response.value as? [[String: Any]] else {
+                            print("Error converting JSON")
+                            completion(nil, response.error)
+                            return
+                        }
+                        
+                        completion(value,nil)
+                        
+                    case let .failure(error):
+                        print("Erro getting token \(error)")
+                        completion(nil,error)
+                    }
             }
         }
-        
-        task.resume()
     }
     
     func parseJSON(_ data: Data){
@@ -252,5 +257,4 @@ class Student: NSObject, URLSessionDataDelegate {
             self.results[qual.QualCode] = result
         }
     }
-
 }

@@ -7,12 +7,14 @@
 //
 
 import UIKit
+import MBProgressHUD
 
 class QualificationViewController: UITableViewController {
     
     var student: Student!
     
     @IBOutlet weak var progress: CircularProgressBar!
+    @IBOutlet weak var contentView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +24,7 @@ class QualificationViewController: UITableViewController {
         }
         
         student.qualificationsDelegate = self
-        
+        showLoadingHUD()
         student.getStudentQualifications()
         
         // Uncomment the following line to preserve selection between presentations
@@ -112,11 +114,20 @@ class QualificationViewController: UITableViewController {
         }
     }
     
+    private func showLoadingHUD() {
+        let hud = MBProgressHUD.showAdded(to: contentView, animated: true)
+      hud.label.text = "Loading..."
+    }
+
+    private func hideLoadingHUD() {
+      MBProgressHUD.hide(for: contentView, animated: true)
+    }
 
 }
 
 extension QualificationViewController: StudentQualifications{
     func itemsDownloaded() {
+        self.hideLoadingHUD()
         self.tableView.reloadData()
     }
 }
