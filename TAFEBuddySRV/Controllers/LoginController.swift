@@ -161,14 +161,14 @@ class LoginController: UIViewController {
                       completion(value, nil)
                       
                   case let .failure(error):
-                    if response.response?.statusCode == 401 {
-                        
+                    if error.responseCode == 401 {
+                        print("Error in login \(error)")
+                        completion(nil,LoginError.invalidEmailOrPassword)
                     } else {
                         print("Error in login \(error)")
                         completion(nil,LoginError.generalError)
                     }
                   }
-            
         }
     }
     

@@ -77,32 +77,14 @@ class DetailViewController: UIViewController {
 
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 }
-extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+extension DetailViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.sections[section].items.count
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return self.sections[section].name
-    }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return self.sections.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "competenceCell", for: indexPath) as! CompetenceCell
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "competenceCell", for: indexPath) as! CompCollectionViewCell
 
         let section = self.sections[indexPath.section] // First get the section
         let item = section.items[indexPath.row] // Then get item inside that section
@@ -110,5 +92,20 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
         cell.competence = item
         
         return cell
-    }    
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "headerView", for: indexPath) as! HeaderCollectionReusableView
+
+        //headerView.frame.size.height = 100
+        headerView.headerLabel.text = self.sections[indexPath.section].name
+
+        return headerView
+    }
+    
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return self.sections.count
+    }
+    
 }
