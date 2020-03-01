@@ -11,7 +11,6 @@
 		1E381D2623F7EAD300C21B33 /* (null) in Embed Frameworks */ = {isa = PBXBuildFile; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1E3BB54B23F7E32000147F71 /* (null) in Embed Frameworks */ = {isa = PBXBuildFile; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1E3BE4E723F61D2800711951 /* AuthenticationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E3BE4E623F61D2800711951 /* AuthenticationHelper.swift */; };
-		1E4F44FA236282EF00D807DA /* CompetenceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4F44F9236282EF00D807DA /* CompetenceCell.swift */; };
 		1E6330902310FA2900338625 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E63308F2310FA2900338625 /* AppDelegate.swift */; };
 		1E6330922310FA2900338625 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6330912310FA2900338625 /* LoginController.swift */; };
 		1E6330952310FA2900338625 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1E6330932310FA2900338625 /* Main.storyboard */; };
@@ -25,6 +24,7 @@
 		1EE22B7123484FC800B3C277 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE22B7023484FC800B3C277 /* TabBarViewController.swift */; };
 		1EE22B732349D20700B3C277 /* CircularProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE22B722349D20700B3C277 /* CircularProgressBar.swift */; };
 		1EF5E3282408898200EF4945 /* HeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF5E3272408898200EF4945 /* HeaderCollectionReusableView.swift */; };
+		1EF5E32C2408AB9900EF4945 /* CompetenceDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF5E32B2408AB9900EF4945 /* CompetenceDetailViewController.swift */; };
 		1EF6FF402321F7D40041219A /* QualificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF6FF3F2321F7D40041219A /* QualificationCell.swift */; };
 		1EF6FF422321F98D0041219A /* Student.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1EF6FF412321F98D0041219A /* Student.storyboard */; };
 		1EF6FF44232200D80041219A /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF6FF43232200D80041219A /* WelcomeViewController.swift */; };
@@ -50,7 +50,6 @@
 /* Begin PBXFileReference section */
 		1E06B1562387EDE000B22AD0 /* ParchmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParchmentViewController.swift; sourceTree = "<group>"; };
 		1E3BE4E623F61D2800711951 /* AuthenticationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationHelper.swift; sourceTree = "<group>"; };
-		1E4F44F9236282EF00D807DA /* CompetenceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompetenceCell.swift; sourceTree = "<group>"; };
 		1E63308C2310FA2900338625 /* TAFEBuddySRV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TAFEBuddySRV.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E63308F2310FA2900338625 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1E6330912310FA2900338625 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
@@ -66,6 +65,7 @@
 		1EE22B7023484FC800B3C277 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		1EE22B722349D20700B3C277 /* CircularProgressBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircularProgressBar.swift; sourceTree = "<group>"; };
 		1EF5E3272408898200EF4945 /* HeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCollectionReusableView.swift; sourceTree = "<group>"; };
+		1EF5E32B2408AB9900EF4945 /* CompetenceDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompetenceDetailViewController.swift; sourceTree = "<group>"; };
 		1EF6FF3F2321F7D40041219A /* QualificationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QualificationCell.swift; sourceTree = "<group>"; };
 		1EF6FF412321F98D0041219A /* Student.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Student.storyboard; sourceTree = "<group>"; };
 		1EF6FF43232200D80041219A /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
@@ -146,6 +146,7 @@
 				1EE22B7023484FC800B3C277 /* TabBarViewController.swift */,
 				1EA11D0A236418890086A7F1 /* DetailViewController.swift */,
 				1E06B1562387EDE000B22AD0 /* ParchmentViewController.swift */,
+				1EF5E32B2408AB9900EF4945 /* CompetenceDetailViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -166,7 +167,6 @@
 			isa = PBXGroup;
 			children = (
 				1EF6FF3F2321F7D40041219A /* QualificationCell.swift */,
-				1E4F44F9236282EF00D807DA /* CompetenceCell.swift */,
 				1EA0647323FF473400DE7E14 /* CompCollectionViewCell.swift */,
 				1EF5E3272408898200EF4945 /* HeaderCollectionReusableView.swift */,
 			);
@@ -292,7 +292,7 @@
 				1EA11D0B236418890086A7F1 /* DetailViewController.swift in Sources */,
 				1EE22B7123484FC800B3C277 /* TabBarViewController.swift in Sources */,
 				1E6330922310FA2900338625 /* LoginController.swift in Sources */,
-				1E4F44FA236282EF00D807DA /* CompetenceCell.swift in Sources */,
+				1EF5E32C2408AB9900EF4945 /* CompetenceDetailViewController.swift in Sources */,
 				1E06B1572387EDE000B22AD0 /* ParchmentViewController.swift in Sources */,
 				1EE22B732349D20700B3C277 /* CircularProgressBar.swift in Sources */,
 				1E7C777F232B333D00347AF2 /* Student.swift in Sources */,

@@ -29,17 +29,17 @@ class ParchmentViewController: UIViewController {
     
     // Keyboard events
     @objc func keyboardWillShow(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            if let activeTextField = self.activeTextField {
+       // if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            //if let activeTextField = self.activeTextField {
 //                if self.view.frame.origin.contains(activeTextField.frame.origin){
 //                    self.view.frame.origin.y -= keyboardSize.height
 //                }
-            }
+         //   }
 
 //            if self.view.frame.origin.y == 0 {
 //                self.view.frame.origin.y -= keyboardSize.height
 //            }
-        }
+    //    }
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {

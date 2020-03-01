@@ -24,12 +24,16 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var electiveProgress: UIProgressView!
     @IBOutlet weak var listedElectiveProgress: UIProgressView!
     @IBOutlet weak var requestParchmentButton: UIButton!
+    @IBOutlet weak var collectionView: UICollectionView!
     
     var qualification: Qualification!
     var result: Result!
     var competences: [Competence]!
     
     var sections: [Section]! = []
+    
+    let competenceCellHeight: CGFloat = 86.0
+    let competenceCellInset: CGFloat = 8.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,8 +81,28 @@ class DetailViewController: UIViewController {
 
     }
     
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
+        if segue.identifier == "competenceDetail" {
+            let controller = segue.destination as! CompetenceDetailViewController
+            if let cell = sender as? CompCollectionViewCell,
+                let indexPath = collectionView.indexPath(for: cell) {
+                let competence = sections[indexPath.section].items[indexPath.row]
+                controller.competenceTitle = competence.NationalCompCode
+                controller.competenceDescription = competence.CompetencyName
+                controller.result = competence.Grade
+       
+            }
+        }
+    }
+    
 }
-extension DetailViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+
+extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.sections[section].items.count
     }
@@ -94,18 +118,26 @@ extension DetailViewController: UICollectionViewDataSource, UICollectionViewDele
         return cell
     }
     
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return self.sections.count
+    }
+    
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "headerView", for: indexPath) as! HeaderCollectionReusableView
 
-        //headerView.frame.size.height = 100
         headerView.headerLabel.text = self.sections[indexPath.section].name
 
         return headerView
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = collectionView.frame.width - (competenceCellInset * 2)
+        let height = competenceCellHeight
+        return CGSize(width: width, height: height)
+    }
     
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return self.sections.count
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: competenceCellInset, left: competenceCellInset, bottom: competenceCellInset, right: competenceCellInset)
     }
     
 }

@@ -12,6 +12,9 @@ import UIKit
 class CircularProgressBar: UIView {
     
     var progressValue: Int!
+    //let completeColor: UIColor! = UIColor(red: 0.671, green: 0.924, blue: 1.0, alpha: 1.0)
+    let completeColor: UIColor! = UIColor(red: 0.223, green: 0.575, blue: 0.262, alpha: 1.0)
+    let notCompleteColor: UIColor! = UIColor(red: 0.174, green: 0.382, blue: 1.0, alpha: 1.0)
     
     //MARK: awakeFromNib
     
@@ -33,7 +36,7 @@ class CircularProgressBar: UIView {
     
     public var labelSize: CGFloat = 20 {
         didSet {
-            label.font = UIFont.systemFont(ofSize: labelSize)
+            label.font = UIFont(name: "Avenir Next Regular", size: labelSize)
             label.sizeToFit()
             configLabel()
         }
@@ -146,9 +149,9 @@ class CircularProgressBar: UIView {
     
     private func setForegroundLayerColorForSafePercent(){
         if self.progressValue >= self.safePercent {
-            self.foregroundLayer.strokeColor = UIColor.green.cgColor
+            self.foregroundLayer.strokeColor = completeColor.cgColor
         } else {
-            self.foregroundLayer.strokeColor = UIColor.red.cgColor
+            self.foregroundLayer.strokeColor = notCompleteColor.cgColor
         }
     }
     

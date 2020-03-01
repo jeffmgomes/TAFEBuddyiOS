@@ -21,8 +21,6 @@ class QualificationCell : UITableViewCell{
         // Set up Progress bar
         progressBar.labelSize = 10
         progressBar.lineWidth = 4
-        //progressBar.setProgress(to: 0, withAnimation: true)
-        //progressBar.safePercent = 100
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
