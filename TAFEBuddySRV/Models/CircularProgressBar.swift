@@ -12,8 +12,7 @@ import UIKit
 class CircularProgressBar: UIView {
     
     var progressValue: Int!
-    //let completeColor: UIColor! = UIColor(red: 0.671, green: 0.924, blue: 1.0, alpha: 1.0)
-    let completeColor: UIColor! = UIColor(red: 0.223, green: 0.575, blue: 0.262, alpha: 1.0)
+    let completeColor: UIColor! = UIColor(red: 0.0, green: 0.686, blue: 0.502, alpha: 1.0)
     let notCompleteColor: UIColor! = UIColor(red: 0.174, green: 0.382, blue: 1.0, alpha: 1.0)
     
     //MARK: awakeFromNib
@@ -36,8 +35,6 @@ class CircularProgressBar: UIView {
     
     public var labelSize: CGFloat = 20 {
         didSet {
-            label.font = UIFont(name: "Avenir Next Regular", size: labelSize)
-            label.sizeToFit()
             configLabel()
         }
     }
@@ -101,6 +98,7 @@ class CircularProgressBar: UIView {
     }
     
     private var pathCenter: CGPoint{ get{ return self.convert(self.center, from:self.superview) } }
+    
     private func makeBar(){
         self.layer.sublayers = nil
         drawBackgroundLayer()
@@ -133,15 +131,6 @@ class CircularProgressBar: UIView {
         self.layer.addSublayer(foregroundLayer)
     }
     
-    private func makeLabel(withText text: String) -> UILabel {
-        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-        label.text = text
-        label.font = UIFont.systemFont(ofSize: labelSize)
-        label.sizeToFit()
-        label.center = pathCenter
-        return label
-    }
-    
     private func configLabel(){
         label.sizeToFit()
         label.center = pathCenter
@@ -157,6 +146,7 @@ class CircularProgressBar: UIView {
     
     private func setupView() {
         makeBar()
+        label.font = UIFont(name: "AvenirNext-Regular", size: labelSize)!
         self.addSubview(label)
     }
     

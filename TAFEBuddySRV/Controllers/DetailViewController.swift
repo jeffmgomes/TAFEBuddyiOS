@@ -29,6 +29,7 @@ class DetailViewController: UIViewController {
     var qualification: Qualification!
     var result: Result!
     var competences: [Competence]!
+    var student: Student!
     
     var sections: [Section]! = []
     
@@ -40,6 +41,17 @@ class DetailViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         // Initialization code
+        // Set navigation bar title
+        
+        let myTitleNavBar: UILabel = UILabel()
+        myTitleNavBar.text = qualification.QualName
+        myTitleNavBar.font = UIFont(name: "AvenirNext-DemiBold", size: 17)!
+        myTitleNavBar.adjustsFontSizeToFitWidth = true
+        
+        self.navigationItem.titleView = myTitleNavBar
+        
+        var showSpareCompentences: Bool = true
+        
         // Set up Progress bar
         circularProgressBar.labelSize = 30
         circularProgressBar.lineWidth = 4
@@ -55,28 +67,45 @@ class DetailViewController: UIViewController {
         listedElectiveLabel.text = "Listed Electives: \(result.listElectiveComplete) of \(qualification.ReqListedElectedUnits)"
         listedElectiveProgress.setProgress(Float(Float(result.listElectiveComplete) / Float(qualification.ReqListedElectedUnits)), animated: true)
         
+        if (coreProgress.progress + electiveProgress.progress + listedElectiveProgress.progress) == 3.0 {
+            showSpareCompentences = false
+        }
+        
         
         // Map the competences
-        let coreComp = self.competences.filter({$0.CompTypeCode == "C"})
+        let coreComp: [Competence]
+        let electivesComp: [Competence]
+        let listedElectComp: [Competence]
+        
+        if showSpareCompentences {
+            coreComp = self.competences.filter({$0.CompTypeCode == "C"})
+            electivesComp = self.competences.filter({$0.CompTypeCode == "E"})
+            listedElectComp = self.competences.filter({$0.CompTypeCode != "C" && $0.CompTypeCode != "E"})
+        } else {
+            coreComp = self.competences.filter({$0.CompTypeCode == "C" && $0.Grade != ""})
+            electivesComp = self.competences.filter({$0.CompTypeCode == "E" && $0.Grade != ""})
+            listedElectComp = self.competences.filter({$0.CompTypeCode != "C" && $0.CompTypeCode != "E" && $0.Grade != ""})
+        }
         if coreComp.count > 0 {
             self.sections.append(Section.init(name: "Core", items: coreComp))
         }
         
-        let electivesComp = self.competences.filter({$0.CompTypeCode == "E"})
         if electivesComp.count > 0 {
             self.sections.append(Section.init(name: "Elective", items: electivesComp))
         }
         
-        let listedElectComp = self.competences.filter({$0.CompTypeCode != "C" && $0.CompTypeCode != "E"})
         if listedElectComp.count > 0 {
             self.sections.append(Section.init(name: "Listed Electives", items: listedElectComp))
         }
+        
+        requestParchmentButton.layer.cornerRadius = 5
         
         // Enable Request Parchment Button
         if (percentage == 1) {
             requestParchmentButton.isEnabled = true
         } else {
             requestParchmentButton.isEnabled = false
+            requestParchmentButton.backgroundColor = .lightGray
         }
 
     }
@@ -92,14 +121,17 @@ class DetailViewController: UIViewController {
             if let cell = sender as? CompCollectionViewCell,
                 let indexPath = collectionView.indexPath(for: cell) {
                 let competence = sections[indexPath.section].items[indexPath.row]
-                controller.competenceTitle = competence.NationalCompCode
-                controller.competenceDescription = competence.CompetencyName
-                controller.result = competence.Grade
-       
+                controller.competence = competence
+                controller.qualification = qualification
             }
         }
+        
+        if segue.identifier == "parchmentView" {
+            let controller = segue.destination as! ParchmentViewController
+            controller.student = self.student
+            controller.qualification = self.qualification
+        }
     }
-    
 }
 
 extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {

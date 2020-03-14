@@ -179,29 +179,6 @@ class Student: NSObject, URLSessionDataDelegate {
         }
     }
     
-    func parseJSON(_ data: Data){
-        var jsonArray = NSArray()
-        let result = NSMutableArray()
-        
-        do{
-            jsonArray = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! NSArray
-            
-            var jsonElement = NSDictionary()
-            
-            for i in 0 ..< jsonArray.count {
-                jsonElement = jsonArray[i] as! NSDictionary
-                result.add(jsonElement)
-            }
-            
-        } catch let error as NSError{
-            print(error)
-        }
-        
-        DispatchQueue.main.async(execute: { () -> Void in
-            self.delegate.itemsDownloaded(items: result)
-        })
-    }
-    
     func parseQualification(item: [String: Any]) -> Qualification?
     {
         guard let qualCode = item["QualCode"] as? String,

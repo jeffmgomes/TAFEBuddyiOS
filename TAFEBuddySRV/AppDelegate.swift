@@ -12,10 +12,18 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
-
+    let normalAttrs = [
+        NSAttributedString.Key.font: UIFont(name: "AvenirNext-DemiBold", size: 17)!
+    ]
+    let largeAttrs = [
+        NSAttributedString.Key.font: UIFont(name: "AvenirNext-DemiBold", size: 30)!
+    ]
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        UINavigationBar.appearance().largeTitleTextAttributes = largeAttrs
+        UINavigationBar.appearance().titleTextAttributes = normalAttrs
+        
         return true
     }
 

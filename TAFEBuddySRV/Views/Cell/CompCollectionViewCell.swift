@@ -28,12 +28,17 @@ class CompCollectionViewCell: UICollectionViewCell {
     func updateUI()
     {
         competenceLabel.text = competence.NationalCompCode
-        subjectLabel.text = "Subject: \(competence.SubjectCode)"
+        
+        if competence.SubjectCode == "" {
+            subjectLabel.text = "Click for more information"
+        } else {
+            subjectLabel.text = "Subject: \(competence.SubjectCode)"
+        }
         
         if competence.Grade == "PA" {
                 iconImageView.image = UIImage(named: "success")
         } else {
-                iconImageView.image = UIImage(named: "error")
+                iconImageView.image = UIImage(named: "warning")
         }
         
         contentView.backgroundColor = UIColor(red: 0.850, green: 0.850, blue: 0.850, alpha: 1.0)

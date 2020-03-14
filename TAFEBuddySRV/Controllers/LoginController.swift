@@ -44,6 +44,8 @@ class LoginController: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButtonOutlet: UIButton!
     
+    var activeTextField: UITextField?
+    
     // Properties
     let backgroundImageView = UIImageView()
     let baseUrl: String = "https://tafebuddy.azurewebsites.net/login" // Base url for this Controller
@@ -200,7 +202,7 @@ class LoginController: UIViewController {
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             if self.view.frame.origin.y == 0 {
-                self.view.frame.origin.y -= keyboardSize.height
+                self.view.frame.origin.y -= (keyboardSize.height / 2)
             }
         }
     }
@@ -232,9 +234,18 @@ extension LoginController: UITextFieldDelegate {
         if textField == emailTextField {
             passwordTextField.becomeFirstResponder()
         } else {
-            self.hideKeyboard()
+            // Perform the login button tapped
+            loginButtonTapped(loginButtonOutlet)
         }
         return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        activeTextField = textField
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
+        activeTextField = nil
     }
 }
 

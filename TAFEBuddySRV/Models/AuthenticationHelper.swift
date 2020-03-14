@@ -22,7 +22,6 @@ class AuthenticationHelper {
         
         if let key = keychainDataToString(tag: tokenTagKeychain),
             let date = keychainDataToString(tag: tokenExpireTagKeychain){
-            print("A key was found")
             let formatter = DateFormatter()
             formatter.dateFormat = "dd/MM/yyyy HH:mm:ss"
             if let dateTime = formatter.date(from: date) {
@@ -181,10 +180,8 @@ class AuthenticationHelper {
         var status = errSecSuccess
         // Check if key already exists
          if getDataFromKeychain(tag: tag) != nil {
-            print("Trying to update")
             status = SecItemUpdate(query as CFDictionary, update as CFDictionary)
         } else {
-            print("Trying to add")
             for (key, value) in update {
                 query[key] = value
             }
@@ -200,7 +197,6 @@ class AuthenticationHelper {
     }
     
     func keychainDataToString(tag: String) -> String? {
-        print("Trying to convert")
         guard let data = getDataFromKeychain(tag: tag) else {
             return nil
         }

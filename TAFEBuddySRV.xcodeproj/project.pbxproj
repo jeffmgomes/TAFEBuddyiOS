@@ -20,6 +20,8 @@
 		1EA11D0B236418890086A7F1 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EA11D0A236418890086A7F1 /* DetailViewController.swift */; };
 		1EA11D0D236422C30086A7F1 /* Competence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EA11D0C236422C30086A7F1 /* Competence.swift */; };
 		1EA11D0F236596D30086A7F1 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1EA11D0E236596D30086A7F1 /* Launch Screen.storyboard */; };
+		1EB34000241A309400D5F5A2 /* Subject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EB33FFF241A309400D5F5A2 /* Subject.swift */; };
+		1EB34002241A48BD00D5F5A2 /* SuggestionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EB34001241A48BD00D5F5A2 /* SuggestionCollectionViewCell.swift */; };
 		1EE22B6F234768D600B3C277 /* Qualification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE22B6E234768D600B3C277 /* Qualification.swift */; };
 		1EE22B7123484FC800B3C277 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE22B7023484FC800B3C277 /* TabBarViewController.swift */; };
 		1EE22B732349D20700B3C277 /* CircularProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE22B722349D20700B3C277 /* CircularProgressBar.swift */; };
@@ -29,7 +31,7 @@
 		1EF6FF422321F98D0041219A /* Student.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1EF6FF412321F98D0041219A /* Student.storyboard */; };
 		1EF6FF44232200D80041219A /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF6FF43232200D80041219A /* WelcomeViewController.swift */; };
 		1EF6FF46232201530041219A /* QualificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF6FF45232201530041219A /* QualificationViewController.swift */; };
-		F6B8D34F8EE0F34E8EEEB569 /* libPods-TAFEBuddySRV.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B2DE039A670028CA1DEF05C0 /* libPods-TAFEBuddySRV.a */; };
+		6E9EE9FA876DEC16BAFC64C0 /* libPods-TAFEBuddySRV.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 85FB7DDBE167D62760C2F4A9 /* libPods-TAFEBuddySRV.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -61,6 +63,8 @@
 		1EA11D0A236418890086A7F1 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		1EA11D0C236422C30086A7F1 /* Competence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Competence.swift; sourceTree = "<group>"; };
 		1EA11D0E236596D30086A7F1 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		1EB33FFF241A309400D5F5A2 /* Subject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subject.swift; sourceTree = "<group>"; };
+		1EB34001241A48BD00D5F5A2 /* SuggestionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionCollectionViewCell.swift; sourceTree = "<group>"; };
 		1EE22B6E234768D600B3C277 /* Qualification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Qualification.swift; sourceTree = "<group>"; };
 		1EE22B7023484FC800B3C277 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		1EE22B722349D20700B3C277 /* CircularProgressBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircularProgressBar.swift; sourceTree = "<group>"; };
@@ -70,9 +74,9 @@
 		1EF6FF412321F98D0041219A /* Student.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Student.storyboard; sourceTree = "<group>"; };
 		1EF6FF43232200D80041219A /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		1EF6FF45232201530041219A /* QualificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QualificationViewController.swift; sourceTree = "<group>"; };
-		6A85BCA8EEE9E1EE10A609B9 /* Pods-TAFEBuddySRV.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TAFEBuddySRV.release.xcconfig"; path = "Target Support Files/Pods-TAFEBuddySRV/Pods-TAFEBuddySRV.release.xcconfig"; sourceTree = "<group>"; };
-		74C14EC5DEFE889E03128A3C /* Pods-TAFEBuddySRV.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TAFEBuddySRV.debug.xcconfig"; path = "Target Support Files/Pods-TAFEBuddySRV/Pods-TAFEBuddySRV.debug.xcconfig"; sourceTree = "<group>"; };
-		B2DE039A670028CA1DEF05C0 /* libPods-TAFEBuddySRV.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TAFEBuddySRV.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		85FB7DDBE167D62760C2F4A9 /* libPods-TAFEBuddySRV.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TAFEBuddySRV.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D21CF263EFB1D1BE6192D949 /* Pods-TAFEBuddySRV.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TAFEBuddySRV.debug.xcconfig"; path = "Target Support Files/Pods-TAFEBuddySRV/Pods-TAFEBuddySRV.debug.xcconfig"; sourceTree = "<group>"; };
+		E391480B1A11ED27CA3C9DC5 /* Pods-TAFEBuddySRV.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TAFEBuddySRV.release.xcconfig"; path = "Target Support Files/Pods-TAFEBuddySRV/Pods-TAFEBuddySRV.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,7 +84,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F6B8D34F8EE0F34E8EEEB569 /* libPods-TAFEBuddySRV.a in Frameworks */,
+				6E9EE9FA876DEC16BAFC64C0 /* libPods-TAFEBuddySRV.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -93,7 +97,7 @@
 				1E63308E2310FA2900338625 /* TAFEBuddySRV */,
 				1E63308D2310FA2900338625 /* Products */,
 				6A9957D2C93C33551871678D /* Pods */,
-				38C16120074E28F6E6828200 /* Frameworks */,
+				D7BDAF3B1EAE4070B20794AF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -159,6 +163,7 @@
 				1EE22B6E234768D600B3C277 /* Qualification.swift */,
 				1EA11D0C236422C30086A7F1 /* Competence.swift */,
 				1E3BE4E623F61D2800711951 /* AuthenticationHelper.swift */,
+				1EB33FFF241A309400D5F5A2 /* Subject.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -169,25 +174,26 @@
 				1EF6FF3F2321F7D40041219A /* QualificationCell.swift */,
 				1EA0647323FF473400DE7E14 /* CompCollectionViewCell.swift */,
 				1EF5E3272408898200EF4945 /* HeaderCollectionReusableView.swift */,
+				1EB34001241A48BD00D5F5A2 /* SuggestionCollectionViewCell.swift */,
 			);
 			path = Cell;
-			sourceTree = "<group>";
-		};
-		38C16120074E28F6E6828200 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				B2DE039A670028CA1DEF05C0 /* libPods-TAFEBuddySRV.a */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		6A9957D2C93C33551871678D /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				74C14EC5DEFE889E03128A3C /* Pods-TAFEBuddySRV.debug.xcconfig */,
-				6A85BCA8EEE9E1EE10A609B9 /* Pods-TAFEBuddySRV.release.xcconfig */,
+				D21CF263EFB1D1BE6192D949 /* Pods-TAFEBuddySRV.debug.xcconfig */,
+				E391480B1A11ED27CA3C9DC5 /* Pods-TAFEBuddySRV.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		D7BDAF3B1EAE4070B20794AF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				85FB7DDBE167D62760C2F4A9 /* libPods-TAFEBuddySRV.a */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -197,7 +203,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1E63309E2310FA2B00338625 /* Build configuration list for PBXNativeTarget "TAFEBuddySRV" */;
 			buildPhases = (
-				1B43FC729A0AC4D98EE7697D /* [CP] Check Pods Manifest.lock */,
+				501709B3C1E6B204F5F2016B /* [CP] Check Pods Manifest.lock */,
 				1E6330882310FA2900338625 /* Sources */,
 				1E6330892310FA2900338625 /* Frameworks */,
 				1E63308A2310FA2900338625 /* Resources */,
@@ -260,7 +266,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1B43FC729A0AC4D98EE7697D /* [CP] Check Pods Manifest.lock */ = {
+		501709B3C1E6B204F5F2016B /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -303,7 +309,9 @@
 				1EA11D0D236422C30086A7F1 /* Competence.swift in Sources */,
 				1EF5E3282408898200EF4945 /* HeaderCollectionReusableView.swift in Sources */,
 				1EA0647423FF473400DE7E14 /* CompCollectionViewCell.swift in Sources */,
+				1EB34002241A48BD00D5F5A2 /* SuggestionCollectionViewCell.swift in Sources */,
 				1EF6FF46232201530041219A /* QualificationViewController.swift in Sources */,
+				1EB34000241A309400D5F5A2 /* Subject.swift in Sources */,
 				1E3BE4E723F61D2800711951 /* AuthenticationHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -440,7 +448,7 @@
 		};
 		1E63309F2310FA2B00338625 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 74C14EC5DEFE889E03128A3C /* Pods-TAFEBuddySRV.debug.xcconfig */;
+			baseConfigurationReference = D21CF263EFB1D1BE6192D949 /* Pods-TAFEBuddySRV.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -459,7 +467,7 @@
 		};
 		1E6330A02310FA2B00338625 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6A85BCA8EEE9E1EE10A609B9 /* Pods-TAFEBuddySRV.release.xcconfig */;
+			baseConfigurationReference = E391480B1A11ED27CA3C9DC5 /* Pods-TAFEBuddySRV.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

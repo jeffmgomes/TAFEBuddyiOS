@@ -19,7 +19,7 @@ class QualificationCell : UITableViewCell{
         super.awakeFromNib()
         // Initialization code
         // Set up Progress bar
-        progressBar.labelSize = 10
+        progressBar.labelSize = 15
         progressBar.lineWidth = 4
     }
     
