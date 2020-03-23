@@ -14,12 +14,14 @@ class WelcomeViewController: UIViewController {
     @IBOutlet weak var logoutButton: UIButton!
     
     var student: Student!
+    var lecturer: Lecturer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         if let tabBarController = self.tabBarController as? TabBarViewController {
             self.student = tabBarController.student
+            self.lecturer = tabBarController.lecturer
         }
        
         logoutButton.layer.cornerRadius = 4.0
@@ -28,6 +30,8 @@ class WelcomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         if (student != nil) {
             welcomeLabel.text = "\(student.description)"
+        } else {
+            welcomeLabel.text = "\(lecturer.description)"
         }
     }
 

@@ -11,12 +11,23 @@ import Alamofire
 import Security
 
 class AuthenticationHelper {
-    let clientId : String = "0oa2br9xrvoqO7GgR357"
-    let clientSecret : String = "mqgjAiv4pRuae-whLK-vjWckTVLRCR7htIe35Vxo"
+    let clientId : String!
+    let clientSecret : String!
     let scope : String = "tafebuddy_student"
     let issuer : String = "https://dev-191448.okta.com/oauth2/default"
     let tokenTagKeychain : String = "com.tafe.tafebuddysrv.accessToken"
     let tokenExpireTagKeychain : String = "com.tafe.tafebuddysrv.accessTokenExpire"
+    
+    init() {
+        var keys: NSDictionary!
+        
+        // Get keys from the plist file
+        if let path = Bundle.main.path(forResource: "keys", ofType: "plist") {
+            keys = NSDictionary(contentsOfFile: path)
+        }
+        clientId = keys["clientId"] as? String ?? ""
+        clientSecret = keys["clientSecret"] as? String ?? ""
+    }
     
     func ObtainToken(completion:@escaping (String?, Error?) -> Void) {
         

@@ -53,6 +53,7 @@ class LoginController: UIViewController {
     // Activity Indicator
     var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
     var student: Student!
+    var lecturer: Lecturer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,6 +69,12 @@ class LoginController: UIViewController {
         // Listem for keyboard events
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        // Tap to dismiss keyboard
+        let tap = UITapGestureRecognizer(target: self.view,
+                                        action: #selector(UIView.endEditing))
+        view.addGestureRecognizer(tap)
+        
     }
     
     // Stop listening keyboard events
@@ -120,6 +127,11 @@ class LoginController: UIViewController {
                         self.student = Student(studentId: obj["StudentID"] as? String, givenName: obj["GivenName"] as? String, lastName: obj["LastName"] as? String, email: obj["EmailAddress"] as? String)
                         self.performSegue(withIdentifier: "student", sender: nil)
                     }
+                } else {
+                    if let obj = result?["value"] as? [String: Any] {
+                        self.lecturer = Lecturer(lecturerId: obj["LecturerID"] as? String, givenName: obj["GivenName"] as? String, lastName: obj["LastName"] as? String, email: obj["EmailAddress"] as? String)
+                        self.performSegue(withIdentifier: "lecturer", sender: nil)
+                    }
                 }
             }
         }
@@ -131,8 +143,12 @@ class LoginController: UIViewController {
             if let tabViewController = segue.destination as? TabBarViewController {
                 tabViewController.student = self.student
             }
-
+        } else {
+            if let tabViewController = segue.destination as? TabBarViewController {
+                tabViewController.lecturer = self.lecturer
+            }
         }
+        
     }
     
     
@@ -244,7 +260,7 @@ extension LoginController: UITextFieldDelegate {
         activeTextField = textField
     }
     
-    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
+    func textFieldDidEndEditing(_ textField: UITextField) {
         activeTextField = nil
     }
 }

@@ -123,6 +123,7 @@
                         <outlet property="loginButtonOutlet" destination="VbB-3d-0Df" id="zoG-B9-K5p"/>
                         <outlet property="passwordTextField" destination="6Cj-BH-tVZ" id="Ooc-jw-j5C"/>
                         <segue destination="6EV-HR-ssc" kind="show" identifier="student" id="3xB-sD-R5I"/>
+                        <segue destination="H3L-tA-6oa" kind="show" identifier="lecturer" id="iKZ-KV-aIy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -138,6 +139,16 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xqv-YX-74e" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="753" y="-98"/>
+        </scene>
+        <!--Lecture-->
+        <scene sceneID="0zJ-VD-c16">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Lecture" id="H3L-tA-6oa" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="me2-PN-gQj"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="19d-Zs-zuX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="797" y="91"/>
         </scene>
     </scenes>
     <resources>

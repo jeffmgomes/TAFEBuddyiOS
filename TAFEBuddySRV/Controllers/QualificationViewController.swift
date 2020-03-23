@@ -20,18 +20,23 @@ class QualificationViewController: UITableViewController {
         super.viewDidLoad()
         
         if let tabBarController = self.tabBarController as? TabBarViewController {
-            self.student = tabBarController.student
+            if self.student == nil {
+                self.student = tabBarController.student
+            } else {
+                let myTitleNavBar: UILabel = UILabel()
+                myTitleNavBar.text = "\(self.student.GivenName) \(self.student.LastName)"
+                myTitleNavBar.font = UIFont(name: "AvenirNext-DemiBold", size: 17)!
+                myTitleNavBar.adjustsFontSizeToFitWidth = true
+                
+                self.navigationItem.titleView = myTitleNavBar
+            }
         }
         
-        student.qualificationsDelegate = self
-        showLoadingHUD()
-        student.getStudentQualifications()
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        if self.student.qualifications.count == 0 {
+            student.qualificationsDelegate = self
+            showLoadingHUD()
+            student.getStudentQualifications()
+        }
     }
 
     // MARK: - Table view data source

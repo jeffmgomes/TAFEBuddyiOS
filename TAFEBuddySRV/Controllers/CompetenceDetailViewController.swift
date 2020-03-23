@@ -62,14 +62,21 @@ class CompetenceDetailViewController: UIViewController {
             qualification.getSuggetions(tafeCompCode: competence.TafeCompCode)
         } else {
             subjectLabel.text = competence.SubjectCode
-            resultLabel.text = competence.Grade
+            
+            if competence.Grade == "" {
+                resultLabel.text = "No results available yet."
+                commentsLabel.text = "Come back later."
+            } else {
+             resultLabel.text = competence.Grade
+                if competence.Grade != "PA" {
+                 commentsLabel.text = "Sorry, you don't have a pass grade for this competence."
+                } else {
+                    commentsLabel.text = "Well done!"
+                }
+            }
+            
             subjectSuggestionTitleLabel.isHidden = true
             suggestionsCollectionView.isHidden = true
-            if competence.Grade != "PA"  && competence.Grade != "" {
-                commentsLabel.text = "Sorry, you don't have a pass grade for this competence."
-            } else {
-                commentsLabel.text = "Well done!"
-            }
         }
 
     }

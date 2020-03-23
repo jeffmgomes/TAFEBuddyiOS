@@ -11,7 +11,7 @@ import Foundation
 import Alamofire
 
 protocol StudentProtocol: class {
-    func itemsDownloaded(items: NSArray)
+    func itemsDownloaded(items: [Student])
 }
 
 protocol StudentQualifications: class {
@@ -69,6 +69,33 @@ class Student: NSObject, URLSessionDataDelegate {
     override var description: String
     {
         return "\(GivenName) \(LastName)"
+    }
+    
+    func getStudents()
+    {
+        let url = baseUrl
+        var students: [Student] = []
+        
+        request(url: url, method: "GET", parameters: nil) { (json, error) in
+            if let error = error {
+                print(error.localizedDescription)
+                return
+            }
+            
+            guard let json = json else {
+                print("No Json response")
+                return
+            }
+            
+            for item in json {
+                guard let student = self.parseStudent(item: item) else {
+                    return
+                }
+                students.append(student)
+            }
+            
+            DispatchQueue.main.async { self.delegate.itemsDownloaded(items: students) }
+        }
     }
     
     func getStudentQualifications()
@@ -177,6 +204,19 @@ class Student: NSObject, URLSessionDataDelegate {
                     }
             }
         }
+    }
+    
+    func parseStudent(item: [String: Any]) -> Student?
+    {
+        guard let studentId = item["StudentID"] as? String,
+        let givenName = item["GivenName"] as? String,
+        let lastName = item["LastName"] as? String,
+        let email = item["EmailAddress"] as? String else {
+                return nil
+        }
+        
+        let student = Student(studentId: studentId, givenName: givenName, lastName: lastName, email: email)
+        return student
     }
     
     func parseQualification(item: [String: Any]) -> Qualification?

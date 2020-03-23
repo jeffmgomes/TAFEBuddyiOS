@@ -11,6 +11,7 @@ import UIKit
 class TabBarViewController: UITabBarController {
 
     var student: Student!
+    var lecturer: Lecturer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +29,5 @@ class TabBarViewController: UITabBarController {
         // Pass the selected object to the new view controller.
         print("I passed through the prepare in the Tab")
     }
-    
 
 }

@@ -22,6 +22,7 @@ class ParchmentViewController: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var tafesaIDTextField: UITextField!
     @IBOutlet weak var qualificationTitleTextField: UITextField!
+    @IBOutlet weak var phoneNumberTextField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,12 +30,10 @@ class ParchmentViewController: UIViewController {
         // Do any additional setup after loading the view.
         submitParchmentButton.layer.cornerRadius = 5
         
-        // Set the DatePicker view
-        let dateOfBirthPicker: UIDatePicker = UIDatePicker()
-        dateOfBirthPicker.datePickerMode = .date
-        dateOfBirthPicker.addTarget(self, action: #selector(handleDatePicker(_:)), for: .valueChanged)
-        dateOfBirthTextField.delegate = self
-        dateOfBirthTextField.inputView = dateOfBirthPicker
+        setupDatePicker() // Setup the DatePicker
+        setupToolbar() // Creates a Done button for the inputs that doesn't have
+        
+        scrollView.keyboardDismissMode = .onDrag // Dismiss keyboard on drag
         
         // Auto populate fields based on the user
         firstNameTextField.text = self.student.GivenName
@@ -80,10 +79,6 @@ class ParchmentViewController: UIViewController {
         scrollView.contentInset = contentInsets
         scrollView.scrollIndicatorInsets = contentInsets
     }
-    
-    func hideKeyboard() {
-        self.resignFirstResponder()
-    }
 
     @objc func handleDatePicker(_ sender: UIDatePicker){
         dateOfBirthTextField.text = DateFormatter.localizedString(from: sender.date, dateStyle: .medium, timeStyle: .none)
@@ -110,7 +105,7 @@ class ParchmentViewController: UIViewController {
 extension ParchmentViewController: UITextFieldDelegate {
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        self.hideKeyboard()
+        textField.resignFirstResponder()
         return true
     }
     
@@ -120,5 +115,32 @@ extension ParchmentViewController: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         activeTextField = nil
+    }
+    
+    func setupDatePicker() {
+        // Set the DatePicker view
+        let dateOfBirthPicker: UIDatePicker = UIDatePicker()
+        dateOfBirthPicker.datePickerMode = .date
+        dateOfBirthPicker.addTarget(self, action: #selector(handleDatePicker(_:)), for: .valueChanged)
+        dateOfBirthTextField.delegate = self
+        dateOfBirthTextField.inputView = dateOfBirthPicker
+    }
+    
+    func setupToolbar() {        
+        //ToolBar
+        let toolbar = UIToolbar(frame: CGRect(origin: .zero, size: .init(width: view.frame.size.width, height: 30)));
+        toolbar.sizeToFit()
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneButtonAction));
+        let spaceButton = UIBarButtonItem(barButtonSystemItem:.flexibleSpace, target: nil, action: nil)
+
+        toolbar.setItems([spaceButton,doneButton], animated: false)
+                
+        dateOfBirthTextField.inputAccessoryView = toolbar
+        tafesaIDTextField.inputAccessoryView = toolbar
+        phoneNumberTextField.inputAccessoryView = toolbar
+    }
+    
+    @objc func doneButtonAction() {
+        self.view.endEditing(true)
     }
 }

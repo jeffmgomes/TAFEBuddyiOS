@@ -132,6 +132,20 @@ class DetailViewController: UIViewController {
             controller.qualification = self.qualification
         }
     }
+    
+    @IBAction func approveParchmentTapped(_ sender: Any) {
+        showToast(title: "Parchment Approved", message: "Parchment successfully approved")
+    }
+    
+    // Toast
+    func showToast(title: String, message: String){
+        let alertAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        alertController.addAction(alertAction)
+        
+        self.present(alertController, animated: true,completion: nil)
+    }
 }
 
 extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
