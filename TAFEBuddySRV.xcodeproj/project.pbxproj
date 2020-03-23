@@ -18,13 +18,13 @@
 		1E6330902310FA2900338625 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E63308F2310FA2900338625 /* AppDelegate.swift */; };
 		1E6330922310FA2900338625 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6330912310FA2900338625 /* LoginController.swift */; };
 		1E6330952310FA2900338625 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1E6330932310FA2900338625 /* Main.storyboard */; };
+		1E7212372428A77C007D94D0 /* keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1E7212362428A77C007D94D0 /* keys.plist */; };
 		1E7C777B232B2F7100347AF2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1E7C777A232B2F7100347AF2 /* Assets.xcassets */; };
 		1E7C777F232B333D00347AF2 /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7C777E232B333D00347AF2 /* Student.swift */; };
 		1EA0647423FF473400DE7E14 /* CompCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EA0647323FF473400DE7E14 /* CompCollectionViewCell.swift */; };
 		1EA11D0B236418890086A7F1 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EA11D0A236418890086A7F1 /* DetailViewController.swift */; };
 		1EA11D0D236422C30086A7F1 /* Competence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EA11D0C236422C30086A7F1 /* Competence.swift */; };
 		1EA11D0F236596D30086A7F1 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1EA11D0E236596D30086A7F1 /* Launch Screen.storyboard */; };
-		1EA68EF7242733910088627D /* keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1EA68EF6242733910088627D /* keys.plist */; };
 		1EA68EF9242733F10088627D /* keys-Example.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1EA68EF8242733F10088627D /* keys-Example.plist */; };
 		1EB34000241A309400D5F5A2 /* Subject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EB33FFF241A309400D5F5A2 /* Subject.swift */; };
 		1EB34002241A48BD00D5F5A2 /* SuggestionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EB34001241A48BD00D5F5A2 /* SuggestionCollectionViewCell.swift */; };
@@ -67,13 +67,13 @@
 		1E6330912310FA2900338625 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		1E6330942310FA2900338625 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1E63309B2310FA2B00338625 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1E7212362428A77C007D94D0 /* keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = keys.plist; sourceTree = "<group>"; };
 		1E7C777A232B2F7100347AF2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1E7C777E232B333D00347AF2 /* Student.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Student.swift; sourceTree = "<group>"; };
 		1EA0647323FF473400DE7E14 /* CompCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompCollectionViewCell.swift; sourceTree = "<group>"; };
 		1EA11D0A236418890086A7F1 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		1EA11D0C236422C30086A7F1 /* Competence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Competence.swift; sourceTree = "<group>"; };
 		1EA11D0E236596D30086A7F1 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
-		1EA68EF6242733910088627D /* keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = keys.plist; sourceTree = "<group>"; };
 		1EA68EF8242733F10088627D /* keys-Example.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "keys-Example.plist"; sourceTree = "<group>"; };
 		1EB33FFF241A309400D5F5A2 /* Subject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subject.swift; sourceTree = "<group>"; };
 		1EB34001241A48BD00D5F5A2 /* SuggestionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -131,8 +131,8 @@
 				1EF6FF3A2321F75D0041219A /* Storyboards */,
 				1E63308F2310FA2900338625 /* AppDelegate.swift */,
 				1E63309B2310FA2B00338625 /* Info.plist */,
-				1EA68EF6242733910088627D /* keys.plist */,
 				1EA68EF8242733F10088627D /* keys-Example.plist */,
+				1E7212362428A77C007D94D0 /* keys.plist */,
 			);
 			path = TAFEBuddySRV;
 			sourceTree = "<group>";
@@ -274,10 +274,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1E7212372428A77C007D94D0 /* keys.plist in Resources */,
 				1EA68EF9242733F10088627D /* keys-Example.plist in Resources */,
 				1EF6FF422321F98D0041219A /* Student.storyboard in Resources */,
 				1E7C777B232B2F7100347AF2 /* Assets.xcassets in Resources */,
-				1EA68EF7242733910088627D /* keys.plist in Resources */,
 				1EA11D0F236596D30086A7F1 /* Launch Screen.storyboard in Resources */,
 				1E2025E0241FA04000BDB17A /* Lecture.storyboard in Resources */,
 				1E6330952310FA2900338625 /* Main.storyboard in Resources */,
