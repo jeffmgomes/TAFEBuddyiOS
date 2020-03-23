@@ -1,7 +1,7 @@
 # TAFEBuddyiOS - SRV
 TAFEBuddySRV iOS application
 
-Please, before running this application get in touch with me, so I can provide you with the ClientID and ClientSecret to access the REST API.
+If you want to test the application please get in touch with me, so I can provide you with the ClientID and ClientSecret to access the REST API.
 
 After getting the ClientID and ClientSecret.
 1. Rename the file *Keys-Example.plist* to *Keys.plist*. You can find this file inside the project folder.
